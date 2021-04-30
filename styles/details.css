@@ -1,7 +1,7 @@
 /* You need to create the rest of styles for the layout shown */
 
 .options {
-    flex-basis: 24%;
+    flex-basis: 20%;
     margin: 0 2rem;
     border: 1px dashed dodgerblue;
     padding: 1rem;
@@ -9,3 +9,7 @@
     box-shadow: 0.25rem 0.25rem 0.5rem rgb(143, 143, 143);
 }
 
+.choices {
+    display: flex;
+    justify-content: space-around;
+}
