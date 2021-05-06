@@ -3,22 +3,15 @@ import { DiamondSizes } from "./DiamondSizes.js";
 import { JewelryStyles } from "./JewelryStyles.js";
 import { Metals } from "./Metals.js";
 import { Orders } from "./Orders.js";
+import { styleRadioButton } from "./radioStyle.js";
+import { SubmitOrderButton } from "./submitButton.js";
 
 document.addEventListener("click", (event) => {
-  if (event.target.id.startsWith("orderButton")) {
-    addCustomOrder()
+  if (event.target.id === "orderButton") {
+    addCustomOrder();
   }
-   ;
 });
 
-// const costString = totalCost.toLocaleString("en-US", {
-//   style: "currency",
-//   currency: "USD"
-// })
-
-// `<li>
-//   Order #${order.id} cost ${costString}
-// </li>`
 
 export const KneelDiamonds = () => {
   return `
@@ -37,11 +30,16 @@ export const KneelDiamonds = () => {
                 <h2>Styles</h2>
                 ${JewelryStyles()}
             </section>
+            
         </article>
 
-        <article>
-            <button id="orderButton">Create Custom Order</button>
+        <article id="styleRadioButton ">
+            ${ styleRadioButton() }
         </article>
+
+        
+            ${SubmitOrderButton()}
+        
 
         <article class="customOrders">
             <h2>Custom Jewelry Orders</h2>
