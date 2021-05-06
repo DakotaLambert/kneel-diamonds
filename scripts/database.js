@@ -5,6 +5,8 @@
     modules to get copies of the state.
 
 */
+//* declaring a variable called database, and its value is an Object, inside the object are properties that are arrays of objects
+
 const database = {
     styles: [
         { id: 1, style: "Classic", price: 500 },
@@ -25,20 +27,64 @@ const database = {
         { id: 4, metal: "Platinum", price: 795.45 },
         { id: 5, metal: "Palladium", price: 1241.0 }
     ],
+    ringStyles: [
+        {id: 1, type: "Ring"},
+        {id: 2, type: "Earring"},
+        {id: 3, type: "Necklace"}
+        
+    ],
+    //pre-generated order for reference, also to house the properties of xId in the database
     customOrders: [
         {
             id: 1,
             metalId: 3,
             sizeId: 2,
             styleId: 3,
+            ringStyleId: 1,
             timestamp: 1614659931693
         }
     ],	
-    orderBuilder: [
-        {
+    //user choices
+    orderBuilder: {},
+    
+}
 
-        },
-    ]
+export const addCustomOrder = () => {
+    if (
+        "metalId" in database.orderBuilder &&
+        "sizeId" in database.orderBuilder &&
+        "styleId" in database.orderBuilder &&
+        "ringStyleId" in database.orderBuilder
+    ) {
+    // Copy the current state of user choices
+    const newOrder = {...database.orderBuilder}
+
+    // Add a new primary key to the object
+    newOrder.id = [...database.customOrders].pop().id + 1
+
+    // Add a timestamp to the order
+    newOrder.timestamp = Date.now()
+
+    // Add the new order object to custom orders state
+    database.customOrders.push(newOrder)
+
+    // Reset the temporary state for user choices
+    database.orderBuilder = {}
+
+    // Broadcast a notification that permanent state has changed
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+
+    return true
+}
+return false
+}
+
+export const setRingStyle = (id) => {
+    database.orderBuilder.ringStyleId = id
+}
+
+export const getRingStyles = () => {
+    return [...database.ringStyles]
 }
 
 export const getMetals = () => {
@@ -67,22 +113,5 @@ export const setStyle = (id) => {
     database.orderBuilder.styleId = id
 }
 
-export const addCustomOrder = () => {
-    // Copy the current state of user choices
-    const newOrder = {...database.orderBuilder}
 
-    // Add a new primary key to the object
-    newOrder.id = [...database.customOrders].pop().id + 1
 
-    // Add a timestamp to the order
-    newOrder.timestamp = Date.now()
-
-    // Add the new order object to custom orders state
-    database.customOrders.push(newOrder)
-
-    // Reset the temporary state for user choices
-    database.orderBuilder = {}
-
-    // Broadcast a notification that permanent state has changed
-    document.dispatchEvent(new CustomEvent("stateChanged"))
-}
