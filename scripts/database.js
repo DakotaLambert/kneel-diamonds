@@ -5,6 +5,7 @@
     modules to get copies of the state.
 
 */
+
 //* declaring a variable called database, and its value is an Object, inside the object are properties that are arrays of objects
 
 const database = {

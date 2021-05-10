@@ -1,0 +1,1 @@
+// provide a copy of the database module so that the databases soul responsibility is to maintain state, rather than maintain state, provide functions to access state, and to change state
