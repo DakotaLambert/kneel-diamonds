@@ -1,11 +1,17 @@
 import { getOrders, getMetals, getStyles, getSizes, getRingStyles } from "./database.js";
 
 const buildOrderListItem = (order) => {
+  
+  //variable value is the return value of the function
   const metals = getMetals();
   const sizes = getSizes();
   const styles = getStyles();
   const ringStyles = getRingStyles();
 
+  //invoking find method
+  //iterating through the styles array with find method
+
+  
   const foundStyle = styles.find((style) => {
     return style.id === order.styleId;
   });
@@ -30,7 +36,7 @@ const buildOrderListItem = (order) => {
     totalCost *= 2
   } else if ( foundRingStyle.id === 3) {
     totalCost *= 4
-  }
+  };
 
   const costString = totalCost.toLocaleString("en-US", {
     style: "currency",
@@ -53,8 +59,8 @@ export const Orders = () => {
 
   let html = "<ul>";
 
-  const listItems = orders.map(buildOrderListItem);
-
+  const listItems = orders.map((order) => buildOrderListItem(order));
+                                //buildOrListItem
   html += listItems.join("");
   html += "</ul>";
 
